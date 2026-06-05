@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: giftapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: giftapp
+  template:
+    metadata:
+      labels:
+        app: giftapp
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: giftapp
+          image: julzdz/giftapp:latest
+          ports:
+            - containerPort: 3060
+          env:
+            - name: MONGO_URL
+              value: "mongodb://mongodb-service:27017/giftdb"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: giftapp-service
+spec:
+  type: NodePort
+  selector:
+    app: giftapp
+  ports:
+    - port: 80
+      targetPort: 3060
+      nodePort: 30080
+      protocol: TCP
