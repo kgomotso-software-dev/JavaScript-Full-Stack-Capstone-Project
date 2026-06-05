@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: giftwebsite
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: giftwebsite
+  template:
+    metadata:
+      labels:
+        app: giftwebsite
+    spec:
+      containers:
+        - name: giftwebsite
+          image: julzdz/giftwebsite:latest
+          ports:
+            - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: giftwebsite-service
+spec:
+  type: NodePort
+  selector:
+    app: giftwebsite
+  ports:
+    - port: 9000
+      targetPort: 9000
+      nodePort: 31217
+      protocol: TCP
