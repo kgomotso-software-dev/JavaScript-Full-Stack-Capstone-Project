@@ -1,0 +1,31 @@
+.search-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-button {
+    background-color: #009688;
+    border: none;
+}
+
+.search-button:hover {
+    background-color: #00796b; 
+}
+
+.dropdown-filter {
+    border: 1px solid #ced4da;
+}
+
+.age-range-slider {
+    width: 100%;
+}
+
+.search-results-card { 
+   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.alert-info {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: transparent;
+}
+
